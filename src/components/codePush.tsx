@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 import CodePushLib from 'react-native-code-push';
+import VersionNumber from 'react-native-version-number'
 
 type State = {
     syncMessage?: string,
@@ -83,6 +84,7 @@ export default class CodePush extends React.Component<{}, State> {
             <View style={styles.infoView}>
                 <View style={{ flex: 1 }} />
                 <Text style={styles.message}>{this.state.syncMessage || ""}</Text>
+                <Text style={styles.message}>v${VersionNumber.appVersion} (${VersionNumber.buildVersion})</Text>
                 <Text style={styles.message}>Code Push Version: {this.state.codePushVersion || "None"}</Text>
                 {progressView}
             </View>

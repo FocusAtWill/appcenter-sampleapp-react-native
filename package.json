@@ -19,6 +19,7 @@
     "react-native": "0.54.4",
     "react-native-code-push": "^5.3.2",
     "react-native-iphone-x-helper": "^1.0.2",
+    "react-native-version-number": "^0.3.2",
     "react-navigation": "^1.5.8"
   },
   "devDependencies": {
