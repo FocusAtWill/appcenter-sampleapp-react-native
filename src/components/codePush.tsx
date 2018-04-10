@@ -7,7 +7,8 @@ type State = {
     progress?: {
         receivedBytes: number,
         totalBytes: number
-    }
+    },
+    codePushVersion?: string
 }
 
 export default class CodePush extends React.Component<{}, State> {
@@ -16,6 +17,19 @@ export default class CodePush extends React.Component<{}, State> {
         this.state = {};
     }
 
+    componentDidUpdate (prevProps) {
+        this.fetchCodePushVersion()
+    }
+
+    async fetchCodePushVersion () {
+        const localPackage = await CodePushLib.getUpdateMetadata()
+        if (!localPackage) {
+          this.setState({ codePushVersion: null })
+        } else {
+          this.setState({ codePushVersion: localPackage.label })
+        }
+    }
+    
     codePushStatusDidChange(syncStatus) {
         switch (syncStatus) {
             case CodePushLib.SyncStatus.CHECKING_FOR_UPDATE:
@@ -58,7 +72,6 @@ export default class CodePush extends React.Component<{}, State> {
     }
 
     render() {
-
         let progressView;
         if (this.state.progress) {
             progressView = (
@@ -70,6 +83,7 @@ export default class CodePush extends React.Component<{}, State> {
             <View style={styles.infoView}>
                 <View style={{ flex: 1 }} />
                 <Text style={styles.message}>{this.state.syncMessage || ""}</Text>
+                <Text style={styles.message}>Code Push Version: {this.state.codePushVersion || "None"}</Text>
                 {progressView}
             </View>
         );

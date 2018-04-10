@@ -38,7 +38,7 @@ const RootTabNavigator = TabNavigator(
     }
   },
   {
-    initialRouteName: 'Welcome',
+    initialRouteName: 'CodePush',
     tabBarOptions: {
       style: {
         backgroundColor: "#252525"
